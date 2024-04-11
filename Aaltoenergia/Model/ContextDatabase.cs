@@ -19,6 +19,16 @@ namespace Aaltoenergia.Model
             Database.EnsureDeleted();
             Database.EnsureCreated();
         }
-
+        public DbSet<LoginC> loginC { get; set; } = null!;
+        public DbSet<LoginT> loginT { get; set; } = null!;
+        public DbSet<Payment> payment { get; set; } = null!;
+        public DbSet<PersonalSubscription> personalSubscription { get; set; } = null!;
+        public DbSet<Subscription> subscription { get; set; } = null!;
+        public DbSet<SubscriptionType> subscriptionType { get; set; } = null!;
+        public DbSet<Trainer> trainer { get; set; } = null!;
+        public DbSet<Visiting> visiting { get; set; } = null!;
+        public DbSet<Workout> workout { get; set; } = null!;
+        public DbSet<WorkoutType> workoutType { get; set; } = null!;
+        public DbSet<Client> client { get; set; } = null!;
     }
 }
