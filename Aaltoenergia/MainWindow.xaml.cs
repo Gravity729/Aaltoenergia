@@ -30,13 +30,13 @@ namespace Aaltoenergia
         {
             Authorization wAuthorization = new();
             wAuthorization.Show();
-            this.Hide();
+            this.Close();
         }
         private void Registration_OnClick(object sender, RoutedEventArgs e)
         {
             Registration wRegistration = new();
             wRegistration.Show();
-            this.Hide();
+            this.Close();
         }
     }
 }

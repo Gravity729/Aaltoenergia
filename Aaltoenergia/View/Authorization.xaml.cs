@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aaltoenergia.View.users;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,13 @@ namespace Aaltoenergia.View
         {
             MainWindow wAuthorization = new();
             wAuthorization.Show();
-            Hide();
+            this.Close();
+        }
+        private void Authorization_OnClick(object sender, RoutedEventArgs e)
+        {
+            HomeWindow wHomeWindow = new();
+            wHomeWindow.Show();
+            this.Close();
         }
     }
 }

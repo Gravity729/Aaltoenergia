@@ -27,7 +27,7 @@ namespace Aaltoenergia.View
         {
             MainWindow wAuthorization = new();
             wAuthorization.Show();
-            this.Hide();
+            this.Close();
         }
     }
 }
