@@ -14,8 +14,9 @@ namespace Aaltoenergia.Model
     {
         [Key]
         public int LoginID { get; set; }// id входа тренера
-
+        
         private string login; //логин тренера
+        [StringLength(50)]
         public string Login
         {
             get { return login; }
@@ -27,6 +28,7 @@ namespace Aaltoenergia.Model
         }
 
         private string password; //пароль клиента
+        [StringLength(128)]
         public string Password
         {
             get { return password; }

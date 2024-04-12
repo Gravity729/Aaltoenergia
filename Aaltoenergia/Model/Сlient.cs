@@ -16,7 +16,7 @@ namespace Aaltoenergia.Model
         public int ClientID { get; set; }// id клиента
 
         private string lName;//фамилия клиента
-
+        [StringLength(50)]
         public string LName
         {
             get { return lName; }
@@ -27,7 +27,7 @@ namespace Aaltoenergia.Model
             }
         }
         private string fName;//фамилия клиента
-
+        [StringLength(50)]
         public string FName
         {
             get { return fName; }
@@ -38,7 +38,7 @@ namespace Aaltoenergia.Model
             }
         }
         private string? pName;//отчество клиента
-
+        [StringLength(50)]
         public string? PName
         {
             get { return pName; }
@@ -58,11 +58,13 @@ namespace Aaltoenergia.Model
                 OnPropertyChanged(nameof(LoginID));
             }
         }
-        [ForeignKey("LoginID")]
         public LoginC LoginC { get; set; }
 
-        private string bDate; // дата рождения клиента
-        public string BDate
+
+        private DateTime bDate; // дата рождения клиента
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime BDate
         {
             get { return bDate; }
             set
@@ -73,6 +75,7 @@ namespace Aaltoenergia.Model
         }
 
         private int passportNumber; //номер паспорта клиента
+        [Range(10000, 99999)] // Ограничение от 10000 до 99999
         public int PassportNumber
         {
             get { return passportNumber; }
@@ -84,6 +87,7 @@ namespace Aaltoenergia.Model
         }
 
         private int passportSeries; //серия паспорта клиента
+        [Range(1000, 9999)] // Ограничение от 1000 до 9999
         public int PassportSeries
         {
             get { return passportSeries; }
@@ -93,9 +97,10 @@ namespace Aaltoenergia.Model
                 OnPropertyChanged(nameof(PassportSeries));
             }
         }
-        private ulong phone; //номер телефона клиента
-        [RegularExpression(@"^[1-9]\d{10}$")]
-        public ulong Phone
+        private string phone; //номер телефона клиента
+        [Column(TypeName = "char(11)")] // указываем, что это должно быть строка длиной 11 символов
+        [RegularExpression(@"^[1-9][0-9]{10}$")]
+        public string Phone
         {
             get { return phone; }
             set
@@ -105,6 +110,7 @@ namespace Aaltoenergia.Model
             }
         }
         private string password; //пароль клиента
+        [StringLength(128)]
         public string Password
         {
             get { return password; }
@@ -130,10 +136,9 @@ namespace Aaltoenergia.Model
         public List<Visiting> Visiting { get; set; } = new();
         public List<Workout> Workout { get; set; } = new();
 
-
         public Client() { }
         public Client(int clientID, string lName, string fName, string pName,
-       int loginID, string bDate, int passportNumber, int passportSeries, ulong phone, string password,int personalSubscriptionID)
+       int loginID, DateTime bDate, int passportNumber, int passportSeries, string phone, string password,int personalSubscriptionID)
         {
             this.ClientID = clientID;
             this.LName = lName;

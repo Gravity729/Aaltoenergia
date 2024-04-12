@@ -15,6 +15,7 @@ namespace Aaltoenergia.Model
         public int SubscriptionTypeID { get; set; }//id вида абонемента 
 
         private string name; // название абонемента
+        [StringLength(50)]
         public string Name
         {
             get { return name; }

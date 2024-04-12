@@ -16,7 +16,7 @@ namespace Aaltoenergia.Model
         public int TrainerID { get; set; }// id тренера
 
         private string lName;//фамилия тренера
-
+        [StringLength(50)]
         public string LName
         {
             get { return lName; }
@@ -27,7 +27,7 @@ namespace Aaltoenergia.Model
             }
         }
         private string fName;//фамилия тренера
-
+        [StringLength(50)]
         public string FName
         {
             get { return fName; }
@@ -38,7 +38,7 @@ namespace Aaltoenergia.Model
             }
         }
         private string? pName;//отчество тренера
-
+        [StringLength(50)]
         public string? PName
         {
             get { return pName; }
@@ -61,8 +61,10 @@ namespace Aaltoenergia.Model
         [ForeignKey("LoginID")]
         public LoginT LoginT { get; set; }
 
-        private string bDate; // дата рождения тренера
-        public string BDate
+        private DateTime bDate; // дата рождения тренера
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime BDate
         {
             get { return bDate; }
             set
@@ -73,6 +75,7 @@ namespace Aaltoenergia.Model
         }
 
         private int passportNumber; //номер паспорта тренера
+        [Range(10000, 99999)] // Ограничение от 10000 до 99999
         public int PassportNumber
         {
             get { return passportNumber; }
@@ -84,6 +87,7 @@ namespace Aaltoenergia.Model
         }
 
         private int passportSeries; //серия паспорта тренера
+        [Range(1000, 9999)] // Ограничение от 1000 до 9999
         public int PassportSeries
         {
             get { return passportSeries; }
@@ -104,7 +108,7 @@ namespace Aaltoenergia.Model
             }
         }
         private string achievements;//достижения тренера
-
+        [StringLength(150)]
         public string Achievements
         {
             get { return achievements; }
@@ -114,9 +118,10 @@ namespace Aaltoenergia.Model
                 OnPropertyChanged(nameof(Achievements));
             }
         }
-        private ulong phone; //номер телефона тренера
-        [RegularExpression(@"^[1-9]\d{10}$")]
-        public ulong Phone
+        private string phone; //номер телефона тренера
+        [Column(TypeName = "char(11)")] // указываем, что это должно быть строка длиной 11 символов
+        [RegularExpression(@"^[1-9][0-9]{10}$")]
+        public string Phone
         {
             get { return phone; }
             set
@@ -126,6 +131,7 @@ namespace Aaltoenergia.Model
             }
         }
         private string password; //пароль тренера
+        [StringLength(128)]
         public string Password
         {
             get { return password; }
@@ -136,6 +142,7 @@ namespace Aaltoenergia.Model
             }
         }
         private string login; //логин тренера
+        [StringLength(50)]
         public string Login
         {
             get { return login; }
@@ -148,8 +155,8 @@ namespace Aaltoenergia.Model
 
         public Trainer() { }
         public Trainer(int trainerID, string lName, string fName,string pName,
-       int loginID, string bDate, int passportNumber,int passportSeries,int experience, string achievements,
-       ulong phone, string password, string login)
+       int loginID, DateTime bDate, int passportNumber,int passportSeries,int experience, string achievements,
+       string phone, string password, string login)
         {
             this.TrainerID = trainerID;
             this.LName = lName;

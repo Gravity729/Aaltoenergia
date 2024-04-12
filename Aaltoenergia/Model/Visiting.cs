@@ -15,8 +15,10 @@ namespace Aaltoenergia.Model
         [Key]
         public int VisitingID { get; set; }//id посещения
 
-        private string date; // дата посещения
-        public string Date
+        private DateTime date; // дата посещения
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime Date
         {
             get { return date; }
             set
@@ -25,8 +27,10 @@ namespace Aaltoenergia.Model
                 OnPropertyChanged(nameof(Date));
             }
         }
-        private string startTime;// время посещения
-        public string StartTime
+        private DateTime startTime;// время начала посещения
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
+        public DateTime StartTime
         {
             get { return startTime; }
             set
@@ -35,8 +39,10 @@ namespace Aaltoenergia.Model
                 OnPropertyChanged(nameof(StartTime));
             }
         }
-        private string endTime;// время посещения
-        public string EndTime
+        private DateTime endTime;// время конца посещения
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
+        public DateTime EndTime
         {
             get { return endTime; }
             set
@@ -59,7 +65,7 @@ namespace Aaltoenergia.Model
         public Client Client { get; set; }
 
         public Visiting() { }
-        public Visiting(int visitingID, string date, string startTime, string endTime, int clientID)
+        public Visiting(int visitingID, DateTime date, DateTime startTime, DateTime endTime, int clientID)
         {
             this.VisitingID = visitingID;
             this.Date = date;

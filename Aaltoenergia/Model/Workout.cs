@@ -15,8 +15,10 @@ namespace Aaltoenergia.Model
         [Key]
         public int WorkoutID { get; set; }//id тренировки
 
-        private string startTime;// время тренировки
-        public string StartTime
+        private DateTime startTime;// время начала тренировки
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
+        public DateTime StartTime
         {
             get { return startTime; }
             set
@@ -26,8 +28,10 @@ namespace Aaltoenergia.Model
             }
         }
 
-        private string endTime;// время тренировки
-        public string EndTime
+        private DateTime endTime;// время конца тренировки
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
+        public DateTime EndTime
         {
             get { return endTime; }
             set
@@ -38,6 +42,7 @@ namespace Aaltoenergia.Model
         }
 
         private string dayOfTheWeek; // день недели
+        [StringLength(11)]
         public string DayOfTheWeek
         {
             get { return dayOfTheWeek; }
@@ -48,8 +53,8 @@ namespace Aaltoenergia.Model
             }
         }
 
-        private uint locationOfTheEvent;// номер зала тренировки
-        public uint LocationOfTheEvent
+        private int locationOfTheEvent;// номер зала тренировки
+        public int LocationOfTheEvent
         {
             get { return locationOfTheEvent; }
             set
@@ -90,8 +95,8 @@ namespace Aaltoenergia.Model
 
         
         public Workout() { }
-        public Workout(int workoutID, string startTime, string endTime, string dayOfTheWeek,
-            uint locationOfTheEvent, int workoutTypeID, int trainerID)
+        public Workout(int workoutID, DateTime startTime, DateTime endTime, string dayOfTheWeek,
+            int locationOfTheEvent, int workoutTypeID, int trainerID)
         {
             this.WorkoutID = workoutID;
             this.StartTime = startTime;

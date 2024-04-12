@@ -27,6 +27,7 @@ namespace Aaltoenergia.Model
         }
 
         private string duration; // продолжительность абонемента
+        [StringLength(50)]
         public string Duration
         {
             get { return duration; }

@@ -15,8 +15,10 @@ namespace Aaltoenergia.Model
         [Key]
         public int PaymentID { get; set; }//id оплаты
 
-        private string date; // дата оплаты
-        public string Date
+        private DateTime date;// дата оплаты
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime Date
         {
             get { return date; }
             set
@@ -36,6 +38,7 @@ namespace Aaltoenergia.Model
             }
         }
         private string typeOfPayment;// тип оплаты
+        [StringLength(50)]
         public string TypeOfPayment
         {
             get { return typeOfPayment; }
@@ -59,7 +62,7 @@ namespace Aaltoenergia.Model
         public PersonalSubscription PersonalSubscription { get; set; }
 
         public Payment() { }
-        public Payment(int paymentID, string date, decimal sum, string typeOfPayment, 
+        public Payment(int paymentID, DateTime date, decimal sum, string typeOfPayment, 
             int personalSubscriptionID)
         {
             this.PaymentID = paymentID;

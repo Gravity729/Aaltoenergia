@@ -15,6 +15,7 @@ namespace Aaltoenergia.Model
         public int WorkoutTypeID { get; set; }//id вида тренировки
 
         private string name; // название вида тренировки
+        [StringLength(50)]
         public string Name
         {
             get { return name; }
