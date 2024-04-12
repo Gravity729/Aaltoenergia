@@ -48,8 +48,8 @@ namespace Aaltoenergia.Model
                 OnPropertyChanged(nameof(PName));
             }
         }
-        private int loginID;//внешний ключ на таблицу loginC
-        public int LoginID
+        private int? loginID;//внешний ключ на таблицу loginC
+        public int? LoginID
         {
             get { return loginID; }
             set

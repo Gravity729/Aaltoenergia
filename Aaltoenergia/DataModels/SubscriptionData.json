@@ -1,0 +1,32 @@
+[
+  {
+    "SubscriptionID": 1,
+    "Cost": 1400,
+    "Duration": "1 месяц",
+    "SubscriptionTypeID": 1
+  },
+  {
+    "SubscriptionID": 2,
+    "Cost": 18000,
+    "Duration": "Год",
+    "SubscriptionTypeID": 2
+  },
+  {
+    "SubscriptionID": 3,
+    "Cost": 1700,
+    "Duration": "1 месяц",
+    "SubscriptionTypeID": 3
+  },
+  {
+    "SubscriptionID": 4,
+    "Cost": 300,
+    "Duration": "Одно занятие",
+    "SubscriptionTypeID": 4
+  },
+  {
+    "SubscriptionID": 5,
+    "Cost": 2000,
+    "Duration": "1 месяц",
+    "SubscriptionTypeID": 5
+  }
+]

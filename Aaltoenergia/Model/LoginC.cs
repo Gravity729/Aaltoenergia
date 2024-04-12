@@ -14,7 +14,6 @@ namespace Aaltoenergia.Model
     {
         [Key]
         public int LoginID { get; set; }// id входа клиента
-
         
         private string phone; //номер телефона клиента
         [Column(TypeName = "char(11)")] // указываем, что это должно быть строка длиной 11 символов

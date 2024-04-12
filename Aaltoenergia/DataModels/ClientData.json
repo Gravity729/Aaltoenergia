@@ -1,0 +1,67 @@
+[
+  {
+    "ClientID": 1,
+    "LName": "Смирнов",
+    "FName": "Петр",
+    "PName": "Владимирович",
+    "LoginID": 1,
+    "BDate": "23.05.1986",
+    "PassportNumber": 101010,
+    "PassportSeries": 1010,
+    "Phone": 89101001010,
+    "Password": "smirnov86",
+    "PersonalSubscriptionID": 1
+  },
+  {
+    "ClientID": 2,
+    "LName": "Иванов",
+    "FName": "Иван",
+    "PName": "Иванович",
+    "LoginID": 2,
+    "BDate": "10.10.1990",
+    "PassportNumber": 202020,
+    "PassportSeries": 2020,
+    "Phone": 89202002020,
+    "Password": "ivanov90",
+    "PersonalSubscriptionID": 2
+  },
+  {
+    "ClientID": 3,
+    "LName": "Петров",
+    "FName": "Алексей",
+    "PName": "Петрович",
+    "LoginID": 3,
+    "BDate": "15.03.1988",
+    "PassportNumber": 303030,
+    "PassportSeries": 3030,
+    "Phone": 89303003030,
+    "Password": "petrov88",
+    "PersonalSubscriptionID": 3
+  },
+  {
+    "ClientID": 4,
+    "LName": "Козлова",
+    "FName": "Мария",
+    "PName": "Андреевна",
+    "LoginID": 4,
+    "BDate": "05.07.1995",
+    "PassportNumber": 404040,
+    "PassportSeries": 4040,
+    "Phone": 89404004040,
+    "Password": "kozlova95",
+    "PersonalSubscriptionID": 4
+  },
+  {
+    "ClientID": 5,
+    "LName": "Сидоров",
+    "FName": "Антон",
+    "PName": "Сергеевич",
+    "LoginID": 5,
+    "BDate": "20.12.1982",
+    "PassportNumber": 505050,
+    "PassportSeries": 5050,
+    "Phone": 89505005050,
+    "Password": "sidorov82",
+    "PersonalSubscriptionID": 5
+  }
+]

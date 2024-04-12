@@ -1,0 +1,22 @@
+[
+  {
+    "WorkoutTypeID": 1,
+    "Name": "Бассейн"
+  },
+  {
+    "TrainingTypeId": 2,
+    "Name": "Фитнес"
+  },
+  {
+    "TrainingTypeId": 3,
+    "Name": "Силовая"
+  },
+  {
+    "TrainingTypeId": 4,
+    "Name": "Кардио"
+  },
+  {
+    "TrainingTypeId": 5,
+    "Name": "Йога"
+  }
+]
