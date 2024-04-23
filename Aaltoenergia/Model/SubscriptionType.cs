@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Aaltoenergia.Model
 {
-    class SubscriptionType : INotifyPropertyChanged
+    public class SubscriptionType : INotifyPropertyChanged
     {
         [Key]
         public int SubscriptionTypeID { get; set; }//id вида абонемента 
@@ -28,10 +28,9 @@ namespace Aaltoenergia.Model
         public List<Subscription> Subscription { get; set; } = new();
 
         public SubscriptionType() { }
-        public SubscriptionType(int subscriptionTypeID, string name)
+        public SubscriptionType(string name)
         {
-            this.SubscriptionTypeID = subscriptionTypeID;
-            this.Name = name;
+           this.Name = name;
         }
 
 

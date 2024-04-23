@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Aaltoenergia.Model.ClientWorkout" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIABAAAAAIAAAAAIIAAAAAAgAAAAAAAAAAAAhACAAQ=</HashCode>
+      <FileName>Model\ClientWorkout.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Aaltoenergia.Model.Payment" BaseTypeListCollapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIABAAAAQAAAAAAIAAAAAAAgQAAABABAAAAATACAAQ=</HashCode>
+      <FileName>Model\Payment.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Aaltoenergia.Model.PersonalSubscription" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIIAAAAAIIAAAAAAkAAAABAAAAAQAhACEAQ=</HashCode>
+      <FileName>Model\PersonalSubscription.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Aaltoenergia.Model.Subscription" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAACAAAAIAAAABAAgAARAAAAAQAQADgAAAA=</HashCode>
+      <FileName>Model\Subscription.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Aaltoenergia.Model.SubscriptionType" BaseTypeListCollapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAIAAAAAQAgAAEAAAAAQAAABAAAAA=</HashCode>
+      <FileName>Model\SubscriptionType.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Aaltoenergia.Model.Trainer" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAARoAAAECAAJAAIAEQBAAFgAAABAAiAABQohAAUII=</HashCode>
+      <FileName>Model\Trainer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Aaltoenergia.Model.Visiting" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAIAAgACAAoAAgACABAAAAAxAAAAQ=</HashCode>
+      <FileName>Model\Visiting.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Aaltoenergia.Model.Workout" BaseTypeListCollapsed="true">
+    <Position X="4" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIIAAAAAAAIABAEIAA4BCAAoACgQAAAAgAAABgAAAA=</HashCode>
+      <FileName>Model\Workout.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Aaltoenergia.Model.WorkoutType" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAIAAAAAQAgAAEAAAAAAAAABgAAAA=</HashCode>
+      <FileName>Model\WorkoutType.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Aaltoenergia.Model.Client" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAQoAAAEKAABAAIAAQAASEgAAARAAiAAAAojACAII=</HashCode>
+      <FileName>Model\Сlient.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Aaltoenergia.Model.ContextDatabase">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAhAAAAQQQEAAAAIAQAICAEgIABAAAAAASBAIAABg=</HashCode>
+      <FileName>Model\ContextDatabase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

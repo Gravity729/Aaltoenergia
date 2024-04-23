@@ -18,17 +18,32 @@ namespace Aaltoenergia.Migrations
                     LName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     FName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     PName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    LoginID = table.Column<int>(type: "int", nullable: false),
                     BDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PassportNumber = table.Column<int>(type: "int", nullable: false),
                     PassportSeries = table.Column<int>(type: "int", nullable: false),
                     Phone = table.Column<string>(type: "char(11)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    PersonalSubscriptionID = table.Column<int>(type: "int", nullable: false)
+                    PersonalSubscriptionID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_client", x => x.ClientID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "payment",
+                columns: table => new
+                {
+                    PaymentID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Sum = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TypeOfPayment = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PersonalSubscriptionID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_payment", x => x.PaymentID);
                 });
 
             migrationBuilder.CreateTable(
@@ -53,7 +68,6 @@ namespace Aaltoenergia.Migrations
                     LName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     FName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     PName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    LoginID = table.Column<int>(type: "int", nullable: false),
                     BDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PassportNumber = table.Column<int>(type: "int", nullable: false),
                     PassportSeries = table.Column<int>(type: "int", nullable: false),
@@ -79,27 +93,6 @@ namespace Aaltoenergia.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_workoutType", x => x.WorkoutTypeID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "loginC",
-                columns: table => new
-                {
-                    LoginID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Phone = table.Column<string>(type: "char(11)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ClientID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_loginC", x => x.LoginID);
-                    table.ForeignKey(
-                        name: "FK_loginC_client_ClientID",
-                        column: x => x.ClientID,
-                        principalTable: "client",
-                        principalColumn: "ClientID",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -143,27 +136,6 @@ namespace Aaltoenergia.Migrations
                         principalTable: "subscriptionType",
                         principalColumn: "SubscriptionTypeID",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "loginT",
-                columns: table => new
-                {
-                    LoginID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Login = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    TrainerID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_loginT", x => x.LoginID);
-                    table.ForeignKey(
-                        name: "FK_loginT_trainer_TrainerID",
-                        column: x => x.TrainerID,
-                        principalTable: "trainer",
-                        principalColumn: "TrainerID",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -216,6 +188,12 @@ namespace Aaltoenergia.Migrations
                         principalColumn: "ClientID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_personalSubscription_payment_PaymentID",
+                        column: x => x.PaymentID,
+                        principalTable: "payment",
+                        principalColumn: "PaymentID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_personalSubscription_subscription_SubscriptionID",
                         column: x => x.SubscriptionID,
                         principalTable: "subscription",
@@ -224,71 +202,51 @@ namespace Aaltoenergia.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ClientWorkout",
+                name: "сlientWorkout",
                 columns: table => new
                 {
+                    ClientWorkoutID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ClientID = table.Column<int>(type: "int", nullable: false),
                     WorkoutID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ClientWorkout", x => new { x.ClientID, x.WorkoutID });
+                    table.PrimaryKey("PK_сlientWorkout", x => x.ClientWorkoutID);
                     table.ForeignKey(
-                        name: "FK_ClientWorkout_client_ClientID",
+                        name: "FK_сlientWorkout_client_ClientID",
                         column: x => x.ClientID,
                         principalTable: "client",
                         principalColumn: "ClientID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ClientWorkout_workout_WorkoutID",
+                        name: "FK_сlientWorkout_workout_WorkoutID",
                         column: x => x.WorkoutID,
                         principalTable: "workout",
                         principalColumn: "WorkoutID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "payment",
-                columns: table => new
-                {
-                    PaymentID = table.Column<int>(type: "int", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Sum = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    TypeOfPayment = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    PersonalSubscriptionID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_payment", x => x.PaymentID);
-                    table.ForeignKey(
-                        name: "FK_payment_personalSubscription_PaymentID",
-                        column: x => x.PaymentID,
-                        principalTable: "personalSubscription",
-                        principalColumn: "PersonalSubscriptionID",
-                        onDelete: ReferentialAction.Restrict);
-                });
+            migrationBuilder.CreateIndex(
+                name: "IX_сlientWorkout_ClientID",
+                table: "сlientWorkout",
+                column: "ClientID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ClientWorkout_WorkoutID",
-                table: "ClientWorkout",
+                name: "IX_сlientWorkout_WorkoutID",
+                table: "сlientWorkout",
                 column: "WorkoutID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_loginC_ClientID",
-                table: "loginC",
-                column: "ClientID",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_loginT_TrainerID",
-                table: "loginT",
-                column: "TrainerID",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_personalSubscription_ClientID",
                 table: "personalSubscription",
                 column: "ClientID",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_personalSubscription_PaymentID",
+                table: "personalSubscription",
+                column: "PaymentID",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -320,16 +278,10 @@ namespace Aaltoenergia.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ClientWorkout");
+                name: "сlientWorkout");
 
             migrationBuilder.DropTable(
-                name: "loginC");
-
-            migrationBuilder.DropTable(
-                name: "loginT");
-
-            migrationBuilder.DropTable(
-                name: "payment");
+                name: "personalSubscription");
 
             migrationBuilder.DropTable(
                 name: "visiting");
@@ -338,19 +290,19 @@ namespace Aaltoenergia.Migrations
                 name: "workout");
 
             migrationBuilder.DropTable(
-                name: "personalSubscription");
+                name: "payment");
+
+            migrationBuilder.DropTable(
+                name: "subscription");
+
+            migrationBuilder.DropTable(
+                name: "client");
 
             migrationBuilder.DropTable(
                 name: "trainer");
 
             migrationBuilder.DropTable(
                 name: "workoutType");
-
-            migrationBuilder.DropTable(
-                name: "client");
-
-            migrationBuilder.DropTable(
-                name: "subscription");
 
             migrationBuilder.DropTable(
                 name: "subscriptionType");

@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Aaltoenergia.View.users"
         mc:Ignorable="d"
-        Title="TrainerWindow" Height="450" Width="800">
+        Title="TrainerWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Window.Resources >
-        <Style TargetType="Button">
+        <Style TargetType="Button" x:Key="a">
             <Setter Property="Background" Value="#FFD9D9D9"/>
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="Template">
@@ -25,32 +25,75 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style TargetType="Button" x:Key="b">
+            <Setter Property="Background" Value="#FF42ADB5"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,5"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF339B96"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <Rectangle HorizontalAlignment="Center" Height="47"  VerticalAlignment="Top" Width="800" Fill="#FF424242"/>
-        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Click="Home_OnClick" Content="Главная" HorizontalAlignment="Left" Margin="10 0 10 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="110" Height="28"/>
-            <Button Click="Trainer_OnClick" Content="Тренеры" HorizontalAlignment="Left"  Margin="10 0 10 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="110" Height="28"/>
-            <Button Click="Schedule_OnClick" Content="Расписание" HorizontalAlignment="Left" Margin="10 0 10 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="110" Height="28"/>
-            <Button Click="Shop_OnClick" Content="Магазин" HorizontalAlignment="Left" Margin="10 0 10 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="110" Height="28"/>
-            <Button Click="Visits_OnClick" Content="Посещаемость" HorizontalAlignment="Left" Margin="10 0 10 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="115" Height="28"/>
-            <Button Click="Profile_OnClick" Content="Профиль" HorizontalAlignment="Left" Margin="10 0 10 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="110" Height="28"/>
-        </StackPanel>
-        <StackPanel Grid.Row="1">
-            <Label Content="Тренерский состав" 
+            <Rectangle HorizontalAlignment="Center" Height="47"  VerticalAlignment="Top" Width="800" Fill="#FF424242"/>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Style="{StaticResource a}" Click="Home_OnClick" Content="Главная" HorizontalAlignment="Left" Margin="5 0 5 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="100" Height="28"/>
+                <Button Style="{StaticResource a}" Click="Trainer_OnClick" Content="Тренеры" HorizontalAlignment="Left"  Margin="5 0 5 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="100" Height="28"/>
+                <Button Style="{StaticResource a}" Click="Schedule_OnClick" Content="Расписание" HorizontalAlignment="Left" Margin="5 0 5 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="100" Height="28"/>
+                <Button Style="{StaticResource a}" Click="Shop_OnClick" Content="Магазин" HorizontalAlignment="Left" Margin="5 0 5 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="100" Height="28"/>
+                <Button Style="{StaticResource a}" x:Name="Visits" Click="Visits_OnClick" Content="Посещаемость" HorizontalAlignment="Left" Margin="5 0 5 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="115" Height="28"/>
+                <Button Style="{StaticResource a}" x:Name="Clients" Click="Clients_OnClick" Content="Клиенты" HorizontalAlignment="Left" Margin="5 0 5 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="100" Height="28"/>
+                <Button Style="{StaticResource a}" Click="Profile_OnClick" Content="Профиль" HorizontalAlignment="Left" Margin="5 0 5 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="100" Height="28"/>
+            </StackPanel>
+            <StackPanel Grid.Row="1">
+                <Label Content="Тренерский состав" 
    Width="Auto" Background="#FF8DC7C7" 
    Height="56" FontSize="20" HorizontalContentAlignment="Left" Padding="20 0 0 0" 
    VerticalContentAlignment="Center" />
-        </StackPanel>
-
-    </Grid>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" x:Name="ButtonBox">
+                <Button Style="{StaticResource b}" Click="addTrainer_OnClick" Content="Добавить" HorizontalAlignment="Left" Margin="15 10 5 10" VerticalAlignment="Center" Width="100" Height="28"/>
+                <Button Style="{StaticResource b}" Click="editTrainer_OnClick" Content="Редактировать" HorizontalAlignment="Left" Margin="5 10 5 10" VerticalAlignment="Center" Width="115" Height="28"/>
+                <Button Style="{StaticResource b}" Click="deleteTrainer_OnClick" Content="Удалить" HorizontalAlignment="Left" Margin="5 10 5 10" VerticalAlignment="Center" Width="100" Height="28"/>
+            </StackPanel>
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
+                <ListView x:Name="lvTrainer" Background="#FFC0ECF6" FontSize="14" FontWeight="Bold" Margin="0 10 0 0">
+                    <ListView.View>
+                        <GridView >
+                            <GridView.Columns>
+                                <GridViewColumn Header="ФИО тренера" DisplayMemberBinding="{Binding LName}" />
+                                <GridViewColumn Header="Дата рождения">
+                                    <GridViewColumn.DisplayMemberBinding>
+                                        <Binding Path="BDate" StringFormat="dd.MM.yyyy"/>
+                                    </GridViewColumn.DisplayMemberBinding>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Номер телефона" DisplayMemberBinding="{Binding Phone}" />
+                                <GridViewColumn Header="Достижения" DisplayMemberBinding="{Binding Achievements}" />
+                            </GridView.Columns>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
 </Window>

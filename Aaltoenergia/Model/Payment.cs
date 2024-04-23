@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Aaltoenergia.Model
 {
-    class Payment : INotifyPropertyChanged
+    public class Payment : INotifyPropertyChanged
     {
         [Key]
         public int PaymentID { get; set; }//id оплаты
@@ -62,16 +62,14 @@ namespace Aaltoenergia.Model
         public PersonalSubscription PersonalSubscription { get; set; }
 
         public Payment() { }
-        public Payment(int paymentID, DateTime date, decimal sum, string typeOfPayment, 
+        public Payment(DateTime date, decimal sum, string typeOfPayment, 
             int personalSubscriptionID)
         {
-            this.PaymentID = paymentID;
             this.Date = date;
             this.Sum = sum;
             this.TypeOfPayment = typeOfPayment;
             this.PersonalSubscriptionID = personalSubscriptionID;
         }
-
 
         public Payment ShallowCopy()
         {

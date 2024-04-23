@@ -1,64 +1,138 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using Aaltoenergia.Model;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using MessagingToolkit.QRCode.Codec;
+using System.Drawing.Imaging;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
+using MessagingToolkit.QRCode.Codec.Data;
 
 namespace Aaltoenergia.View.users
 {
-    /// <summary>
-    /// Логика взаимодействия для HomeWindow.xaml
-    /// </summary>
     public partial class HomeWindow : Window
     {
+        private ContextDatabase db = new ContextDatabase();
+
         public HomeWindow()
         {
             InitializeComponent();
+
+            if (App.UserRole == 1)
+            {
+                labelWelcome.Content = "Привет, " + App.currentClient.FName + "!";
+                Clients.Visibility = Visibility.Collapsed;
+
+            }
+            else if (App.UserRole == 2)
+            {
+                labelWelcome.Content = "Привет, " + App.currentTrainer.FName + "!";
+                Visits.Visibility = Visibility.Collapsed;
+                Clients.Visibility = Visibility.Collapsed;
+                QrBox.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                labelWelcome.Content = "Привет, Админ!";
+                QrBox.Visibility = Visibility.Collapsed;
+                Visits.Visibility = Visibility.Collapsed;
+            }
         }
+
         private void Home_OnClick(object sender, RoutedEventArgs e)
         {
             HomeWindow wHomeWindow = new();
             wHomeWindow.Show();
-            this.Close();
+            Close();
         }
         private void Trainer_OnClick(object sender, RoutedEventArgs e)
         {
             TrainerWindow wTrainerWindow = new();
             wTrainerWindow.Show();
-            this.Close();
+            Close();
         }
         private void Schedule_OnClick(object sender, RoutedEventArgs e)
         {
             ScheduleWindow wScheduleWindow = new();
             wScheduleWindow.Show();
-            this.Close();
+            Close();
         }
         private void Shop_OnClick(object sender, RoutedEventArgs e)
         {
             ShopWindow wShopWindow = new();
             wShopWindow.Show();
-            this.Close();
+            Close();
         }
         private void Visits_OnClick(object sender, RoutedEventArgs e)
         {
             VisitsWindow wVisitsWindow = new();
             wVisitsWindow.Show();
-            this.Close();
+            Close();
         }
+        private void Clients_OnClick(object sender, RoutedEventArgs e)
+        {
+            ClientWindow wClientWindow = new();
+            wClientWindow.Show();
+            Close();
+        }
+
         private void Profile_OnClick(object sender, RoutedEventArgs e)
         {
             ProfileWindow wProfileWindow = new();
             wProfileWindow.Show();
-            this.Close();
+            Close();
+        }
+
+        public void HomeWindow_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            QRSet();
+        }
+
+        public void QRSet()
+        {
+            PersonalSubscription ps = null;
+
+            if (App.UserRole == 1)
+            {
+                ps = db.personalSubscription.Where(c => c.ClientID == App.currentClient.ClientID).FirstOrDefault();
+            }
+
+            if (ps != null)
+            {
+                string dataToEncode = $"#{ps.PersonalSubscriptionID}, {App.currentClient.LName} {App.currentClient.FName} {App.currentClient.PName}";
+
+                QRCodeEncoder qrEncoder = new QRCodeEncoder();
+
+                qrEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE;
+
+                qrEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.Q;
+
+                qrEncoder.QRCodeVersion = 7;
+
+                Bitmap qrCodeImage = qrEncoder.Encode(dataToEncode);
+
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    qrCodeImage.Save(memoryStream, ImageFormat.Png);
+                    memoryStream.Position = 0;
+
+                    BitmapImage bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.StreamSource = memoryStream;
+                    bitmapImage.EndInit();
+
+                    ImageQR.Source = bitmapImage;
+
+                }
+                ncard.Content = "Номер вашего абонемента: " + ps.PersonalSubscriptionID;
+            }
+            else
+            {
+                ncard.Content = "У вас пока нету абонемента :) ";
+                ImageQR.Source = null;
+            }
         }
     }
 }

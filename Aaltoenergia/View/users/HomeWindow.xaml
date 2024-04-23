@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Aaltoenergia.View.users"
         mc:Ignorable="d"
-        Title="HomeWindow" Height="450" Width="800">
+        Title="HomeWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" Loaded="HomeWindow_OnLoaded">
     <Window.Resources >
         <Style TargetType="Button">
             <Setter Property="Background" Value="#FFD9D9D9"/>
@@ -26,8 +26,9 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
+
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <Grid>            
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -36,65 +37,70 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            
+
             <Rectangle HorizontalAlignment="Center" Height="47"  VerticalAlignment="Top" Width="800" Fill="#FF424242"/>
             <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Click="Home_OnClick" Content="Главная" HorizontalAlignment="Left" Margin="10 0 10 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="110" Height="28"/>
-                <Button Click="Trainer_OnClick" Content="Тренеры" HorizontalAlignment="Left"  Margin="10 0 10 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="110" Height="28"/>
-                <Button Click="Schedule_OnClick" Content="Расписание" HorizontalAlignment="Left" Margin="10 0 10 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="110" Height="28"/>
-                <Button Click="Shop_OnClick" Content="Магазин" HorizontalAlignment="Left" Margin="10 0 10 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="110" Height="28"/>
-                <Button Click="Visits_OnClick" Content="Посещаемость" HorizontalAlignment="Left" Margin="10 0 10 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="115" Height="28"/>
-                <Button Click="Profile_OnClick" Content="Профиль" HorizontalAlignment="Left" Margin="10 0 10 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="110" Height="28"/>
+                <Button Click="Home_OnClick" Content="Главная" HorizontalAlignment="Left" Margin="5 0 5 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="100" Height="28"/>
+                <Button Click="Trainer_OnClick" Content="Тренеры" HorizontalAlignment="Left"  Margin="5 0 5 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="100" Height="28"/>
+                <Button Click="Schedule_OnClick" Content="Расписание" HorizontalAlignment="Left" Margin="5 0 5 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="100" Height="28"/>
+                <Button Click="Shop_OnClick" Content="Магазин" HorizontalAlignment="Left" Margin="5 0 5 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="100" Height="28"/>
+                <Button x:Name="Visits" Click="Visits_OnClick" Content="Посещаемость" HorizontalAlignment="Left" Margin="5 0 5 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="115" Height="28"/>
+                <Button x:Name="Clients" Click="Clients_OnClick" Content="Клиенты" HorizontalAlignment="Left" Margin="5 0 5 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="100" Height="28"/>
+                <Button Click="Profile_OnClick" Content="Профиль" HorizontalAlignment="Left" Margin="5 0 5 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="100" Height="28"/>
             </StackPanel>
-            
+
             <StackPanel Grid.Row="1">
-                <Label Content="Привет, Имя!" 
+                <Label x:Name="labelWelcome"
                     Width="Auto" Background="#FF8DC7C7" 
                     Height="56" FontSize="20" HorizontalContentAlignment="Left" Padding="20 0 0 0" 
                     VerticalContentAlignment="Center" />
             </StackPanel>
-            
-            <StackPanel Grid.Row="2">
-                <Label Content="Номер вашей карты..." Width="Auto" Height="Auto" FontSize="20" 
-                HorizontalContentAlignment="Center" Padding="20 0 0 0" 
+            <StackPanel Grid.Row="2" x:Name="QrBox">
+                <Label x:Name="ncard" Content="Номер вашей карты..." Width="Auto" Height="Auto" FontSize="20" 
+                HorizontalContentAlignment="Center" Padding="0" 
                 VerticalContentAlignment="Center" />
-                <Label Content="QR code." Width="350" Height="300" FontSize="20" 
-                    HorizontalContentAlignment="Center" Padding="20 0 0 0" 
-                    VerticalContentAlignment="Center" Background="#FFC04646" />
-                <!--QR CODE!!! -->
+                <Image  Width="250" Height="200" Name="ImageQR" Margin="10"/>
+               
             </StackPanel>
-            
+
             <StackPanel Grid.Row="3">
-                <Label Content="Ближайшая запись" Width="Auto" Height="Auto" FontSize="20" 
+                <Label Content="О нас" Width="Auto" Height="Auto" FontSize="20" 
                     HorizontalContentAlignment="Left" Padding="30 0 0 0" 
                     VerticalContentAlignment="Center" Margin="0 25 0 0"/>
-                <Label Content="что-то про треню"
-                    Width="714" Background="#D9D9D9" 
-                    Height="148" FontSize="20" HorizontalContentAlignment="Left" Padding="20 30 0 0" Margin="20 20 20 10"/>
-                <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 10">
-                    <RadioButton x:Name="RadioButton1" HorizontalAlignment="Center" Margin="0 0 3 0"/>
-                    <RadioButton x:Name="RadioButton2" HorizontalAlignment="Center"/>
-                </StackPanel>
+                <TextBlock Text="Фитнес-клуб Aaltoenergia - это идеальное место для всех, кто стремится к здоровому образу жизни и совершенствованию своего тела. У нас вы найдете все необходимое для достижения ваших фитнес-целей!"
+                    Width="Auto" Height="Auto" FontSize="16" 
+                    Padding="30 0 0 0" 
+                    Margin="0 25 0 0"
+                    TextWrapping="Wrap"/>
+                <TextBlock Text="В нашем клубе представлен широкий выбор современного оборудования для тренировок,
+начиная от кардио-тренажеров и гантелей, и заканчивая силовыми тренажерами и
+тренажерами для функциональных упражнений. Наши опытные инструкторы всегда готовы
+помочь вам разработать персонализированную программу тренировок, чтобы вы могли
+достичь максимальных результатов."
+Width="Auto" Height="Auto" FontSize="16" 
+Padding="30 0 0 0" 
+Margin="0 25 0 0"
+TextWrapping="Wrap"/>
+                <TextBlock Text="Кроме того, в Aaltoenergia проводятся разнообразные
+групповые занятия, начиная от йоги и пилатеса, и заканчивая
+высокоинтенсивными тренировками. Мы создали уютную и дружелюбную
+атмосферу, где каждый член клуба чувствует себя как дома."
+Width="Auto" Height="Auto" FontSize="16" 
+Padding="30 0 0 0" 
+Margin="0 25 0 0"
+TextWrapping="Wrap"/>
+                <TextBlock Text="Присоединяйтесь к Aaltoenergia и откройте для себя мир фитнеса, энергии и здоровья!"
+Width="Auto" Height="Auto" FontSize="16" 
+Padding="30 0 0 0" 
+Margin="0 25 0 25"
+TextWrapping="Wrap"/>
+                <Image Source="C:\Users\marus\OneDrive\Рабочий стол\РМП - 2\1111.jpg" Width="300" Height="Auto"/>
             </StackPanel>
 
             <StackPanel Grid.Row="4">
-                <Label Content="Абонемент" Width="Auto" Height="Auto" FontSize="20" 
-                    HorizontalContentAlignment="Left" Padding="30 0 0 0" 
-                    VerticalContentAlignment="Center" Margin="0 25 0 0"/>
-                <Label Content="что-то про абонементы"
-                    Width="714" Background="#D9D9D9" 
-                    Height="148" FontSize="20" HorizontalContentAlignment="Left" Padding="20 30 0 0" Margin="20 20 20 10"/>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 10">
-                    <RadioButton x:Name="RadioButton3" HorizontalAlignment="Center" Margin="0 0 3 0"/>
-                    <RadioButton x:Name="RadioButton4" HorizontalAlignment="Center"/>
-                </StackPanel>
-            </StackPanel>
-
-            <StackPanel Grid.Row="5">
                 <Label Content="Для вас" Width="Auto" Height="Auto" FontSize="20" 
                     HorizontalContentAlignment="Left" Padding="30 0 0 0" 
                     VerticalContentAlignment="Center" Margin="0 25 0 0"/>
-
                 <StackPanel  Orientation="Vertical" HorizontalAlignment="Center" Margin="0 0 0 10">
                     <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 10">
                         <Button Click="Schedule_OnClick" Content="Расписание" Margin="10,10,0,0" VerticalAlignment="Top" Background="#D9D9D9" Width="280" Height="56" FontSize="18"/>
@@ -102,7 +108,7 @@
                     </StackPanel>
                     <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 10">
                         <Button  Click="Shop_OnClick" Content="Магазин" Margin="10,10,0,0" VerticalAlignment="Top" Background="#D9D9D9" Width="280" Height="56" FontSize="18"/>
-                        <Button Click="Visits_OnClick" Content="Посещаемость" Margin="10,10,0,0" VerticalAlignment="Top" Background="#D9D9D9" Width="280" Height="56" FontSize="18"/>
+                        <Button Click="Profile_OnClick" Content="Профиль" Margin="10,10,0,0" VerticalAlignment="Top" Background="#D9D9D9" Width="280" Height="56" FontSize="18"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

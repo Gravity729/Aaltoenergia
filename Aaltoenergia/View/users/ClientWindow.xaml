@@ -1,11 +1,11 @@
-﻿<Window x:Class="Aaltoenergia.View.users.ScheduleWindow"
+﻿<Window x:Class="Aaltoenergia.View.users.ClientWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Aaltoenergia.View.users"
         mc:Ignorable="d"
-        Title="ScheduleWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="ClientWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Window.Resources >
         <Style TargetType="Button" x:Key="a">
             <Setter Property="Background" Value="#FFD9D9D9"/>
@@ -44,8 +44,8 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-    <Grid>
+    <ScrollViewer VerticalScrollBarVisibility="Auto"> 
+        <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -66,42 +66,31 @@
             <Button Style="{StaticResource a}" Click="Profile_OnClick" Content="Профиль" HorizontalAlignment="Left" Margin="5 0 5 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="100" Height="28"/>
         </StackPanel>
         <StackPanel Grid.Row="1">
-            <Label Content="Расписание" Width="Auto" Background="#FF8DC7C7" 
-                Height="56" FontSize="20" HorizontalContentAlignment="Left" Padding="20 0 0 0" 
-                VerticalContentAlignment="Center" />
+            <Label Content="Клиенты" 
+   Width="Auto" Background="#FF8DC7C7" 
+   Height="56" FontSize="20" HorizontalContentAlignment="Left" Padding="20 0 0 0" 
+   VerticalContentAlignment="Center" />
         </StackPanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal" x:Name="ButtonBox">
-            <Button Style="{StaticResource b}" Click="addWorkout_OnClick" Content="Добавить" HorizontalAlignment="Left" Margin="15 10 5 10" VerticalAlignment="Center" Width="100" Height="28"/>
-            <Button Style="{StaticResource b}" Click="editWorkout_OnClick" Content="Редактировать" HorizontalAlignment="Left" Margin="5 10 5 10" VerticalAlignment="Center" Width="115" Height="28"/>
-            <Button Style="{StaticResource b}" Click="deleteWorkout_OnClick" Content="Удалить" HorizontalAlignment="Left" Margin="5 10 5 10" VerticalAlignment="Center" Width="100" Height="28"/>
+            <Button Style="{StaticResource b}" Click="addClient_OnClick" Content="Добавить" HorizontalAlignment="Left" Margin="15 10 5 10" VerticalAlignment="Center" Width="100" Height="28"/>
+            <Button Style="{StaticResource b}" Click="editClient_OnClick" Content="Редактировать" HorizontalAlignment="Left" Margin="5 10 5 10" VerticalAlignment="Center" Width="115" Height="28"/>
+            <Button Style="{StaticResource b}" Click="deleteClient_OnClick" Content="Удалить" HorizontalAlignment="Left" Margin="5 10 5 10" VerticalAlignment="Center" Width="100" Height="28"/>
         </StackPanel>
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
-            <ListView x:Name="lvWorkout" Background="#FFC0ECF6" FontSize="14" FontWeight="Bold" Margin="0 10 0 0">
+            <ListView x:Name="lvClient" Background="#FFC0ECF6" FontSize="14" FontWeight="Bold" Margin="0 10 0 0">
                 <ListView.View>
-                    <GridView>
+                    <GridView >
                         <GridView.Columns>
-                            <GridViewColumn Header="День недели" DisplayMemberBinding="{Binding DayOfTheWeek}" />
-                            <GridViewColumn Header="ФИО тренера" DisplayMemberBinding="{Binding Trainer.FullName}" />
-                            <GridViewColumn Header="Занятие" DisplayMemberBinding="{Binding WorkoutType.Name}" />
-                            <GridViewColumn Header="Начало тренировки">
+                            <GridViewColumn Header="ФИО клиента" DisplayMemberBinding="{Binding LName}" />
+                            <GridViewColumn Header="Дата рождения">
                                 <GridViewColumn.DisplayMemberBinding>
-                                    <Binding Path="StartTime" StringFormat="HH:mm"/>
+                                    <Binding Path="BDate" StringFormat="dd.MM.yyyy"/>
                                 </GridViewColumn.DisplayMemberBinding>
                             </GridViewColumn>
-                            <GridViewColumn Header="Конец тренировки">
-                                <GridViewColumn.DisplayMemberBinding>
-                                    <Binding Path="EndTime" StringFormat="HH:mm"/>
-                                </GridViewColumn.DisplayMemberBinding>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Номер зала" DisplayMemberBinding="{Binding LocationOfTheEvent}" />
+                            <GridViewColumn Header="Номер телефона" DisplayMemberBinding="{Binding Phone}" />
                         </GridView.Columns>
                     </GridView>
                 </ListView.View>
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick"/>
-                    </Style>
-                </ListView.ItemContainerStyle>
             </ListView>
         </StackPanel>
     </Grid>

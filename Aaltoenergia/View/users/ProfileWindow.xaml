@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Aaltoenergia.View.users"
         mc:Ignorable="d"
-        Title="ProfileWindow" Height="450" Width="800">
+        Title="ProfileWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" Loaded="ProfileWindow_OnLoaded">
     <Window.Resources >
-        <Style TargetType="Button">
+        <Style TargetType="Button" x:Key="a">
             <Setter Property="Background" Value="#FFD9D9D9"/>
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="Template">
@@ -25,25 +25,41 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style TargetType="Button" x:Key="b">
+            <Setter Property="Background" Value="#FF42ADB5"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,5"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF339B96"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Rectangle HorizontalAlignment="Center" Height="47"  VerticalAlignment="Top" Width="800" Fill="#FF424242"/>
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Click="Home_OnClick" Content="Главная" HorizontalAlignment="Left" Margin="10 0 10 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="110" Height="28"/>
-            <Button Click="Trainer_OnClick" Content="Тренеры" HorizontalAlignment="Left"  Margin="10 0 10 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="110" Height="28"/>
-            <Button Click="Schedule_OnClick" Content="Расписание" HorizontalAlignment="Left" Margin="10 0 10 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="110" Height="28"/>
-            <Button Click="Shop_OnClick" Content="Магазин" HorizontalAlignment="Left" Margin="10 0 10 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="110" Height="28"/>
-            <Button Click="Visits_OnClick" Content="Посещаемость" HorizontalAlignment="Left" Margin="10 0 10 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="115" Height="28"/>
-            <Button Click="Profile_OnClick" Content="Профиль" HorizontalAlignment="Left" Margin="10 0 10 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="110" Height="28"/>
+            <Button Style="{StaticResource a}" Click="Home_OnClick" Content="Главная" HorizontalAlignment="Left" Margin="5 0 5 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="100" Height="28"/>
+            <Button Style="{StaticResource a}" Click="Trainer_OnClick" Content="Тренеры" HorizontalAlignment="Left"  Margin="5 0 5 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="100" Height="28"/>
+            <Button Style="{StaticResource a}" Click="Schedule_OnClick" Content="Расписание" HorizontalAlignment="Left" Margin="5 0 5 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="100" Height="28"/>
+            <Button Style="{StaticResource a}" Click="Shop_OnClick" Content="Магазин" HorizontalAlignment="Left" Margin="5 0 5 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="100" Height="28"/>
+            <Button Style="{StaticResource a}" x:Name="Visits" Click="Visits_OnClick" Content="Посещаемость" HorizontalAlignment="Left" Margin="5 0 5 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="115" Height="28"/>
+            <Button Style="{StaticResource a}" x:Name="Clients" Click="Clients_OnClick" Content="Клиенты" HorizontalAlignment="Left" Margin="5 0 5 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="100" Height="28"/>
+            <Button Style="{StaticResource a}" Click="Profile_OnClick" Content="Профиль" HorizontalAlignment="Left" Margin="5 0 5 0" VerticalAlignment="Center" Background="#FF888888" BorderBrush="#FF707070" Width="100" Height="28"/>
         </StackPanel>
         <StackPanel Grid.Row="1">
             <Label Content="Профиль" 
@@ -52,5 +68,31 @@
             VerticalContentAlignment="Center" />
         </StackPanel>
 
+        <StackPanel Grid.Row="2">
+            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" Margin="0 0 0 10">
+                <StackPanel x:Name="QrBox" Orientation="Vertical" HorizontalAlignment="Left" Margin="0 0 0 10">
+                    <Label x:Name="ncardlk" Width="Auto" Height="Auto" FontSize="20" 
+                        HorizontalContentAlignment="Left" Padding="15 0 0 0" 
+                        VerticalContentAlignment="Center" />
+                    <Image  Width="250" Height="200" Name="ImageQr" Margin="10"/>
+
+                </StackPanel>
+                <StackPanel  Orientation="Vertical" HorizontalAlignment="Left" Margin="10 0 0 10">
+                    <Label x:Name="FIO" Width="Auto" Height="56" FontSize="16" 
+                           HorizontalContentAlignment="Left" Padding="20 0 0 0" 
+                           VerticalContentAlignment="Center" />
+                    <Label x:Name="bDate" Width="Auto" Height="56" FontSize="16" 
+                           HorizontalContentAlignment="Left" Padding="20 0 0 0" 
+                           VerticalContentAlignment="Center" />
+                    <Label x:Name="phone" Width="Auto" Height="56" FontSize="16" 
+                           HorizontalContentAlignment="Left" Padding="20 0 0 0" 
+                           VerticalContentAlignment="Center" />
+                    <Label x:Name="achievements" Width="Auto" Height="56" FontSize="16" 
+                           HorizontalContentAlignment="Left" Padding="20 0 0 0" 
+                           VerticalContentAlignment="Center" />
+                    <Button x:Name="myWorkout" Style="{StaticResource b}" Click="MyWorkout_OnClick" Content="Мои записи" HorizontalAlignment="Left" Margin="15 10 5 10" VerticalAlignment="Center" Width="100" Height="28"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Window>

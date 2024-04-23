@@ -10,7 +10,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Aaltoenergia.Model
 {
-    class Trainer : INotifyPropertyChanged
+    public class Trainer : INotifyPropertyChanged
     {
         [Key]
         public int TrainerID { get; set; }// id тренера
@@ -48,18 +48,6 @@ namespace Aaltoenergia.Model
                 OnPropertyChanged(nameof(PName));
             }
         }
-        private int? loginID;//внешний ключ на таблицу loginT
-        public int? LoginID
-        {
-            get { return loginID; }
-            set
-            {
-                loginID = value;
-                OnPropertyChanged(nameof(LoginID));
-            }
-        }
-        [ForeignKey("LoginID")]
-        public LoginT LoginT { get; set; }
 
         private DateTime bDate; // дата рождения тренера
         [DataType(DataType.Date)]
@@ -154,15 +142,13 @@ namespace Aaltoenergia.Model
         }
 
         public Trainer() { }
-        public Trainer(int trainerID, string lName, string fName,string pName,
-       int loginID, DateTime bDate, int passportNumber,int passportSeries,int experience, string achievements,
-       string phone, string password, string login)
+        public Trainer(string lName, string fName,string pName,
+            DateTime bDate, int passportNumber,int passportSeries,int experience, string achievements,
+            string phone, string password, string login)
         {
-            this.TrainerID = trainerID;
             this.LName = lName;
             this.FName = fName;
             this.PName = pName;
-            this.LoginID = loginID;
             this.BDate = bDate;
             this.PassportNumber = passportNumber;
             this.PassportSeries = passportSeries;
@@ -172,7 +158,7 @@ namespace Aaltoenergia.Model
             this.Password = password;
             this.Login = login;
         }
-
+        public string FullName => $"{LName} {FName} {PName}";
         public List<Workout> Workout { get; set; } = new();
 
         public Trainer ShallowCopy()

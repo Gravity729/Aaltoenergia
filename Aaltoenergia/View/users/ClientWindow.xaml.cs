@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Aaltoenergia.Model;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic.ApplicationServices;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,39 +14,23 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Aaltoenergia.Model;
-using Aaltoenergia.View;
-
 
 namespace Aaltoenergia.View.users
 {
-    public partial class TrainerWindow : Window
+    public partial class ClientWindow : Window
     {
         ContextDatabase db = new ContextDatabase();
-        List<Trainer> trainers;
-        public TrainerWindow()
+        List<Client> clients;
+        public ClientWindow()
         {
             InitializeComponent();
-
-            UpdateTrainersList();
-
-            if (App.UserRole == 1)
-            {
-                ButtonBox.Visibility = Visibility.Collapsed;
-                Clients.Visibility = Visibility.Collapsed;
-            }
-            else if (App.UserRole == 2)
-            {
-                ButtonBox.Visibility = Visibility.Collapsed;
-                Visits.Visibility = Visibility.Collapsed;
-                Clients.Visibility = Visibility.Collapsed;
-            }
-            else
+            UpdateClientsList();
+            if (App.UserRole == 3)
             {
                 Visits.Visibility = Visibility.Collapsed;
             }
-
         }
+
         private void Home_OnClick(object sender, RoutedEventArgs e)
         {
             HomeWindow wHomeWindow = new();
@@ -75,8 +61,10 @@ namespace Aaltoenergia.View.users
             wVisitsWindow.Show();
             Close();
         }
+
         private void Profile_OnClick(object sender, RoutedEventArgs e)
         {
+
             ProfileWindow wProfileWindow = new();
             wProfileWindow.Show();
             Close();
@@ -87,19 +75,23 @@ namespace Aaltoenergia.View.users
             wClientWindow.Show();
             Close();
         }
-        private void addTrainer_OnClick(object sender, RoutedEventArgs e)
+        private void addClient_OnClick(object sender, RoutedEventArgs e)
         {
-            NewTrainer wNewTrainer = new NewTrainer();
-            wNewTrainer.Show();
+            NewClient wNewClient = new();
+            wNewClient.Show();
             Close();
         }
-        private void editTrainer_OnClick(object sender, RoutedEventArgs e)
+
+
+        private void editClient_OnClick(object sender, RoutedEventArgs e)
         {
-            if (lvTrainer.SelectedItem != null)
+            if (lvClient.SelectedItem != null)
             {
-                Trainer selectedTrainer = lvTrainer.SelectedItem as Trainer;
-                EditTriner wEditTrainer = new EditTriner(selectedTrainer);
-                wEditTrainer.Show();
+                Client selectedClient = lvClient.SelectedItem as Client;
+                //Hide();
+                EditClient wEditClient = new EditClient(selectedClient);
+                wEditClient.Show();
+                //UpdateClientsList();
                 Close();
             }
             else
@@ -107,32 +99,32 @@ namespace Aaltoenergia.View.users
                 MessageBox.Show("Пожалуйста, выберите клиента для редактирования");
             }
         }
-        private void deleteTrainer_OnClick(object sender, RoutedEventArgs e)
+        public void UpdateClientsList()
         {
-            if (lvTrainer.SelectedItem != null)
+            clients = db.client.ToList();
+            lvClient.ItemsSource = clients;
+        }
+        private void deleteClient_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (lvClient.SelectedItem != null)
             {
-                Trainer deleteTrainer = (Trainer)lvTrainer.SelectedItem;
-                var fullName = deleteTrainer.LName + " " + deleteTrainer.FName + " " + deleteTrainer.PName;
+                Client deleteClient = (Client)lvClient.SelectedItem;
+                var fullName = deleteClient.LName + " " + deleteClient.FName + " " + deleteClient.PName;
                 MessageBoxResult result = MessageBox.Show($"Вы уверены, что хотите удалить клиента {fullName}?", "Подтверждение удаления", MessageBoxButton.YesNo);
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    db.Entry(deleteTrainer).Reload();
-                    db.trainer.Remove(deleteTrainer);
+                    db.Entry(deleteClient).Reload();
+                    db.client.Remove(deleteClient);
                     db.SaveChanges();
-                    trainers = db.trainer.ToList();
-                    lvTrainer.ItemsSource = trainers;
+                    clients = db.client.ToList();
+                    lvClient.ItemsSource = clients;
                 }
             }
             else
             {
                 MessageBox.Show("Пожалуйста, выберите клиента для удаления");
             }
-        }
-        public void UpdateTrainersList()
-        {
-            trainers = db.trainer.ToList();
-            lvTrainer.ItemsSource = trainers;
         }
     }
 }

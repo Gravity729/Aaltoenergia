@@ -10,7 +10,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Aaltoenergia.Model
 {
-    class Client : INotifyPropertyChanged
+    public class Client : INotifyPropertyChanged
     {
         [Key]
         public int ClientID { get; set; }// id клиента
@@ -48,18 +48,6 @@ namespace Aaltoenergia.Model
                 OnPropertyChanged(nameof(PName));
             }
         }
-        private int? loginID;//внешний ключ на таблицу loginC
-        public int? LoginID
-        {
-            get { return loginID; }
-            set
-            {
-                loginID = value;
-                OnPropertyChanged(nameof(LoginID));
-            }
-        }
-        public LoginC LoginC { get; set; }
-
 
         private DateTime bDate; // дата рождения клиента
         [DataType(DataType.Date)]
@@ -120,8 +108,8 @@ namespace Aaltoenergia.Model
                 OnPropertyChanged(nameof(Password));
             }
         }
-        private int personalSubscriptionID;//внешний ключ на таблицу PersonalSubscription
-        public int PersonalSubscriptionID
+        private int? personalSubscriptionID;//внешний ключ на таблицу PersonalSubscription
+        public int? PersonalSubscriptionID
         {
             get { return personalSubscriptionID; }
             set
@@ -134,17 +122,15 @@ namespace Aaltoenergia.Model
         public PersonalSubscription PersonalSubscription { get; set; }
 
         public List<Visiting> Visiting { get; set; } = new();
-        public List<Workout> Workout { get; set; } = new();
+        public List<ClientWorkout> ClientWorkout { get; set; } = new();
 
         public Client() { }
-        public Client(int clientID, string lName, string fName, string pName,
-       int loginID, DateTime bDate, int passportNumber, int passportSeries, string phone, string password,int personalSubscriptionID)
+        public Client(string lName, string fName, string pName, 
+            DateTime bDate, int passportNumber, int passportSeries, string phone, string password,int personalSubscriptionID)
         {
-            this.ClientID = clientID;
             this.LName = lName;
             this.FName = fName;
             this.PName = pName;
-            this.LoginID = loginID;
             this.BDate = bDate;
             this.PassportNumber = passportNumber;
             this.PassportSeries = passportSeries;            
@@ -152,7 +138,7 @@ namespace Aaltoenergia.Model
             this.Password = password;            
             this.PersonalSubscriptionID = personalSubscriptionID;            
         }
-
+        public string FullNameClient => $"{LName} {FName} {PName}";
         public Client ShallowCopy()
         {
             return (Client)this.MemberwiseClone();

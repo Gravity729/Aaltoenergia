@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Aaltoenergia.Model
 {
-    class Workout : INotifyPropertyChanged
+    public class Workout : INotifyPropertyChanged
     {
         [Key]
         public int WorkoutID { get; set; }//id тренировки
@@ -91,14 +91,13 @@ namespace Aaltoenergia.Model
         [ForeignKey("TrainerID")]
         public Trainer Trainer { get; set; }
         
-        public List<Client> Client { get; set; } = new();
+        public List<ClientWorkout> ClientWorkout { get; set; } = new();
 
         
         public Workout() { }
-        public Workout(int workoutID, DateTime startTime, DateTime endTime, string dayOfTheWeek,
+        public Workout(DateTime startTime, DateTime endTime, string dayOfTheWeek,
             int locationOfTheEvent, int workoutTypeID, int trainerID)
         {
-            this.WorkoutID = workoutID;
             this.StartTime = startTime;
             this.EndTime = endTime;
             this.DayOfTheWeek = dayOfTheWeek;

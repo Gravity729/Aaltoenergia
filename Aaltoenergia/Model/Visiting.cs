@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Aaltoenergia.Model
 {
-    class Visiting : INotifyPropertyChanged
+    public class Visiting : INotifyPropertyChanged
     {
         [Key]
         public int VisitingID { get; set; }//id посещения
@@ -65,9 +65,8 @@ namespace Aaltoenergia.Model
         public Client Client { get; set; }
 
         public Visiting() { }
-        public Visiting(int visitingID, DateTime date, DateTime startTime, DateTime endTime, int clientID)
+        public Visiting(DateTime date, DateTime startTime, DateTime endTime, int clientID)
         {
-            this.VisitingID = visitingID;
             this.Date = date;
             this.StartTime = startTime;
             this.EndTime = endTime;

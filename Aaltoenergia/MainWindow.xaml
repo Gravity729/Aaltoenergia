@@ -6,15 +6,41 @@
         xmlns:local="clr-namespace:Aaltoenergia"
         mc:Ignorable="d"
         WindowStyle="ThreeDBorderWindow"
-        Title="Aaltoenergia" Height="450" Width="800" Background="White">
-    <Window.Resources >
+        Title="Aaltoenergia" Height="450" Width="800" Background="White" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style x:Key="RoundedTextBox" TargetType="TextBox">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="9"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border CornerRadius="10" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ScrollViewer x:Name="PART_ContentHost" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="RoundedPasswordBox" TargetType="PasswordBox">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="9"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type PasswordBox}">
+                        <Border CornerRadius="10" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ScrollViewer x:Name="PART_ContentHost" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style TargetType="Button">
-            <Setter Property="Background" Value="#FFD9D9D9"/>
-            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="#FF6ECDCD"/>
+            <Setter Property="Foreground" Value="White"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="20">
+                        <Border Background="{TemplateBinding Background}" >
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,5"/>
                         </Border>
                     </ControlTemplate>
@@ -22,29 +48,46 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#FFA9A9A9"/>
+                    <Setter Property="Background" Value="#FF45B2AD"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
     </Window.Resources>
 
-
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="117*"/>
+            <ColumnDefinition Width="43*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Label Content="Aaltoenergia приветствует Вас!" VerticalAlignment="Top" Width="Auto" Background="#FF8DC7C7" 
-               Height="90" FontSize="20" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center"/>
+        <Label Content="Вход в аккаунт" VerticalAlignment="Center" 
+               Width="Auto" Background="#FF8DC7C7" 
+               Height="90" FontSize="20" HorizontalContentAlignment="Center"  
+               VerticalContentAlignment="Center" Grid.ColumnSpan="2" />
 
-        <Button Click="Authorization_OnClick" Content="Войти" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="291" Height="44" 
-                FontSize="16" Grid.Row="1" Margin="0, 10" />
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0,114" Grid.RowSpan="2">
+            <Label Content="Логин или номер телефона:" HorizontalAlignment="Left" Margin="250,25,0,0" VerticalAlignment="Bottom" FontFamily="Microsoft Yi Baiti" FontSize="14"/>
 
-        <Button Click="Registration_OnClick" Content="Зарегистрироваться" HorizontalAlignment="Center" VerticalAlignment="Top" Width="291" Height="44" 
-                FontSize="16" Grid.Row="2" Margin="0, 10"/>
+            <TextBox x:Name="textBoxLogin" Style="{StaticResource RoundedTextBox}" HorizontalAlignment="Center" 
+                TextWrapping="Wrap" VerticalAlignment="Bottom" Width="300" Height="45"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
+            <Label Content="Пароль:" HorizontalAlignment="Left" Margin="250,10,0,0" 
+               VerticalAlignment="Top" FontFamily="Microsoft Yi Baiti" FontSize="14" />
+
+            <PasswordBox x:Name="passBox" Style="{StaticResource RoundedPasswordBox}" HorizontalAlignment="Center" 
+                VerticalAlignment="Top" Width="300" Height="45"/>
+        </StackPanel>
+
+        <Button Click="Authorization_OnClick" Content="Войти" VerticalAlignment="Top" Width="150" Height="30" 
+               FontSize="14" Margin="326,10,0,0" Grid.Row="3" BorderBrush="{x:Null}" HorizontalAlignment="Left"/>
+
     </Grid>
 </Window>
-
-<!--#FFD9D9D9-->

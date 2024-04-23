@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Aaltoenergia.Model
 {
-    class WorkoutType : INotifyPropertyChanged
+    public class WorkoutType : INotifyPropertyChanged
     {
         [Key]
         public int WorkoutTypeID { get; set; }//id вида тренировки
@@ -29,9 +29,8 @@ namespace Aaltoenergia.Model
         public List<Workout> Workout { get; set; } = new();
 
         public WorkoutType() { }
-        public WorkoutType(int workoutTypeID, string name)
+        public WorkoutType(string name)
         {
-            this.WorkoutTypeID = workoutTypeID;
             this.Name = name;
         }
 

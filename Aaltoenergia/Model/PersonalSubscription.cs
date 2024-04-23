@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Aaltoenergia.Model
 {
-    class PersonalSubscription : INotifyPropertyChanged
+    public class PersonalSubscription : INotifyPropertyChanged
     {
         [Key]
         public int PersonalSubscriptionID { get; set; }//id персонального абонемента
@@ -41,8 +41,8 @@ namespace Aaltoenergia.Model
         [ForeignKey("PaymentID")]
         public Payment Payment { get; set; }
 
-        private int clientID; // внешний ключ на таблицу Client
-        public int ClientID
+        private int? clientID; // внешний ключ на таблицу Client
+        public int? ClientID
         {
             get { return clientID; }
             set
@@ -56,9 +56,8 @@ namespace Aaltoenergia.Model
 
 
         public PersonalSubscription() { }
-        public PersonalSubscription(int personalSubscriptionID,  int subscriptionID, int paymentID, int clientID)
+        public PersonalSubscription(int subscriptionID, int paymentID, int clientID)
         {
-            this.PersonalSubscriptionID = personalSubscriptionID;
             this.SubscriptionID = subscriptionID;
             this.PaymentID = paymentID;
             this.ClientID = clientID;

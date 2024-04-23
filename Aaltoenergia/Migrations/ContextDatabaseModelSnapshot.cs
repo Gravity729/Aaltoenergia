@@ -43,9 +43,6 @@ namespace Aaltoenergia.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("LoginID")
-                        .HasColumnType("int");
-
                     b.Property<string>("PName")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -61,7 +58,7 @@ namespace Aaltoenergia.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
-                    b.Property<int>("PersonalSubscriptionID")
+                    b.Property<int?>("PersonalSubscriptionID")
                         .HasColumnType("int");
 
                     b.Property<string>("Phone")
@@ -73,67 +70,36 @@ namespace Aaltoenergia.Migrations
                     b.ToTable("client");
                 });
 
-            modelBuilder.Entity("Aaltoenergia.Model.LoginC", b =>
+            modelBuilder.Entity("Aaltoenergia.Model.ClientWorkout", b =>
                 {
-                    b.Property<int>("LoginID")
+                    b.Property<int>("ClientWorkoutID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LoginID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClientWorkoutID"), 1L, 1);
 
                     b.Property<int>("ClientID")
                         .HasColumnType("int");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("char(11)");
-
-                    b.HasKey("LoginID");
-
-                    b.HasIndex("ClientID")
-                        .IsUnique();
-
-                    b.ToTable("loginC");
-                });
-
-            modelBuilder.Entity("Aaltoenergia.Model.LoginT", b =>
-                {
-                    b.Property<int>("LoginID")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("WorkoutID")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LoginID"), 1L, 1);
+                    b.HasKey("ClientWorkoutID");
 
-                    b.Property<string>("Login")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.HasIndex("ClientID");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                    b.HasIndex("WorkoutID");
 
-                    b.Property<int>("TrainerID")
-                        .HasColumnType("int");
-
-                    b.HasKey("LoginID");
-
-                    b.HasIndex("TrainerID")
-                        .IsUnique();
-
-                    b.ToTable("loginT");
+                    b.ToTable("сlientWorkout");
                 });
 
             modelBuilder.Entity("Aaltoenergia.Model.Payment", b =>
                 {
                     b.Property<int>("PaymentID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PaymentID"), 1L, 1);
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -174,6 +140,9 @@ namespace Aaltoenergia.Migrations
                     b.HasKey("PersonalSubscriptionID");
 
                     b.HasIndex("ClientID")
+                        .IsUnique();
+
+                    b.HasIndex("PaymentID")
                         .IsUnique();
 
                     b.HasIndex("SubscriptionID");
@@ -258,9 +227,6 @@ namespace Aaltoenergia.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("LoginID")
-                        .HasColumnType("int");
 
                     b.Property<string>("PName")
                         .HasMaxLength(50)
@@ -368,52 +334,23 @@ namespace Aaltoenergia.Migrations
                     b.ToTable("workoutType");
                 });
 
-            modelBuilder.Entity("ClientWorkout", b =>
-                {
-                    b.Property<int>("ClientID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WorkoutID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ClientID", "WorkoutID");
-
-                    b.HasIndex("WorkoutID");
-
-                    b.ToTable("ClientWorkout");
-                });
-
-            modelBuilder.Entity("Aaltoenergia.Model.LoginC", b =>
+            modelBuilder.Entity("Aaltoenergia.Model.ClientWorkout", b =>
                 {
                     b.HasOne("Aaltoenergia.Model.Client", "Client")
-                        .WithOne("LoginC")
-                        .HasForeignKey("Aaltoenergia.Model.LoginC", "ClientID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .WithMany("ClientWorkout")
+                        .HasForeignKey("ClientID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Aaltoenergia.Model.Workout", "Workout")
+                        .WithMany("ClientWorkout")
+                        .HasForeignKey("WorkoutID")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Client");
-                });
 
-            modelBuilder.Entity("Aaltoenergia.Model.LoginT", b =>
-                {
-                    b.HasOne("Aaltoenergia.Model.Trainer", "Trainer")
-                        .WithOne("LoginT")
-                        .HasForeignKey("Aaltoenergia.Model.LoginT", "TrainerID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Trainer");
-                });
-
-            modelBuilder.Entity("Aaltoenergia.Model.Payment", b =>
-                {
-                    b.HasOne("Aaltoenergia.Model.PersonalSubscription", "PersonalSubscription")
-                        .WithOne("Payment")
-                        .HasForeignKey("Aaltoenergia.Model.Payment", "PaymentID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("PersonalSubscription");
+                    b.Navigation("Workout");
                 });
 
             modelBuilder.Entity("Aaltoenergia.Model.PersonalSubscription", b =>
@@ -424,6 +361,12 @@ namespace Aaltoenergia.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Aaltoenergia.Model.Payment", "Payment")
+                        .WithOne("PersonalSubscription")
+                        .HasForeignKey("Aaltoenergia.Model.PersonalSubscription", "PaymentID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Aaltoenergia.Model.Subscription", "Subscription")
                         .WithMany("PersonalSubscription")
                         .HasForeignKey("SubscriptionID")
@@ -431,6 +374,8 @@ namespace Aaltoenergia.Migrations
                         .IsRequired();
 
                     b.Navigation("Client");
+
+                    b.Navigation("Payment");
 
                     b.Navigation("Subscription");
                 });
@@ -476,25 +421,9 @@ namespace Aaltoenergia.Migrations
                     b.Navigation("WorkoutType");
                 });
 
-            modelBuilder.Entity("ClientWorkout", b =>
-                {
-                    b.HasOne("Aaltoenergia.Model.Client", null)
-                        .WithMany()
-                        .HasForeignKey("ClientID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Aaltoenergia.Model.Workout", null)
-                        .WithMany()
-                        .HasForeignKey("WorkoutID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Aaltoenergia.Model.Client", b =>
                 {
-                    b.Navigation("LoginC")
-                        .IsRequired();
+                    b.Navigation("ClientWorkout");
 
                     b.Navigation("PersonalSubscription")
                         .IsRequired();
@@ -502,9 +431,9 @@ namespace Aaltoenergia.Migrations
                     b.Navigation("Visiting");
                 });
 
-            modelBuilder.Entity("Aaltoenergia.Model.PersonalSubscription", b =>
+            modelBuilder.Entity("Aaltoenergia.Model.Payment", b =>
                 {
-                    b.Navigation("Payment")
+                    b.Navigation("PersonalSubscription")
                         .IsRequired();
                 });
 
@@ -520,10 +449,12 @@ namespace Aaltoenergia.Migrations
 
             modelBuilder.Entity("Aaltoenergia.Model.Trainer", b =>
                 {
-                    b.Navigation("LoginT")
-                        .IsRequired();
-
                     b.Navigation("Workout");
+                });
+
+            modelBuilder.Entity("Aaltoenergia.Model.Workout", b =>
+                {
+                    b.Navigation("ClientWorkout");
                 });
 
             modelBuilder.Entity("Aaltoenergia.Model.WorkoutType", b =>
